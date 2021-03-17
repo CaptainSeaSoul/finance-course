@@ -2,3 +2,8 @@
 @model FinanceCourse.Pages.CourseListModel
 @{
 }
+
+@foreach (var Course in Model.Courses)
+{
+    @await Html.PartialAsync("_CourseOverviewPartial", Course)
+}

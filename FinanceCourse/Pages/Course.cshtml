@@ -1,0 +1,36 @@
+﻿@page
+@model FinanceCourse.Data.Course
+@{
+    // TODO open the last completed page
+    int DayCounter = 1;
+}
+<h2>@Model.Name</h2>
+<ul class="nav nav-tabs" id="courseTab" role="tablist">
+    @foreach (var Page in Model.Pages)
+    {
+        <li class="nav-item">
+            <a class="nav-link active" id="day-@DayCounter-tab" data-toggle="tab" href="#day-@DayCounter" role="tab" aria-controls="day-@DayCounter" aria-selected="true">Day @DayCounter</a>
+        </li>
+        @(DayCounter++)
+    }
+</ul>
+
+<div class="tab-content" id="courseTabContent">
+    @(DayCounter = 1)
+    @foreach (var Page in Model.Pages)
+    {
+        <div class="tab-pane fade @(DayCounter == 1 ? "show active" : "")" id="day-@DayCounter" role="tabpanel" aria-labelledby="day-@DayCounter-tab">
+            <h3>@Page.Title</h3>
+
+            @Html.Raw(Page.Content)
+
+            @if (Page.TaskTool != null)
+            {
+                <component type="@Type.GetType(Page.TaskTool)" render-mode="ServerPrerendered" />
+            }
+        </div>
+        @(DayCounter++)
+    }
+</div>
+
+<script src="_framework/blazor.server.js"></script>

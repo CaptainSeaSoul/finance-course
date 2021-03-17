@@ -1,17 +1,13 @@
-﻿using System;
+﻿using FinanceCourse.Areas.Identity.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinanceCourse.Areas.Identity.Data
+namespace FinanceCourse.Data
 {
-    public enum Tools {
-        ROI,
-        TaxCalculator
-    }
-
     public class CoursePage
     {
         [Key]
@@ -23,7 +19,8 @@ namespace FinanceCourse.Areas.Identity.Data
         public string Title { get; set; }
         [Required]
         public string Content { get; set; }
-        public Tools TaskTool { get; set; }
+        public string TaskTool { get; set; }
+        public ICollection<FinanceCourseUser> PassedUsers { get; set; }
 
     }
 }

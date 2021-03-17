@@ -1,4 +1,5 @@
-﻿@inject SignInManager<FinanceCourseUser> SignInManager
+﻿@using FinanceCourse.Areas.Identity.Data
+@inject SignInManager<FinanceCourseUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

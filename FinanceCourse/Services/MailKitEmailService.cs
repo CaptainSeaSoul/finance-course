@@ -32,6 +32,8 @@ namespace WebPortfolio.Services
 
             using (var client = new MailKit.Net.Smtp.SmtpClient())
             {
+                client.ServerCertificateValidationCallback = (s, c, h, e) => true;  // ToDo - only for dev
+
                 await client.ConnectAsync(_eConfig.SmtpServer, _eConfig.SmtpPort, true);
 
                 await client.AuthenticateAsync(_eConfig.SmtpUsername, _eConfig.SmtpPassword);

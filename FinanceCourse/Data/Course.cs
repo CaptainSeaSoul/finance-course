@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FinanceCourse.Areas.Identity.Data
+namespace FinanceCourse.Data
 {
     public class Course
     {
@@ -14,6 +14,7 @@ namespace FinanceCourse.Areas.Identity.Data
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
+        public string ImageLink { get; set; }
         [Required]
         public string ShortDescription { get; set; }
         public virtual ICollection<CoursePage> Pages { get; set; }

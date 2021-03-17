@@ -1,0 +1,11 @@
+﻿@model FinanceCourse.Data.Course
+
+
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="@Model.ImageLink" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">@Model.ShortDescription</p>
+        <a asp-page="/Course" class="btn btn-primary">Open</a>
+    </div>
+</div>
