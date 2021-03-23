@@ -1,23 +1,25 @@
-﻿@page
-@model FinanceCourse.Data.Course
+﻿@page "{id}"
+@model CourseModel
+@using FinanceCourse.Areas.Tools.Components
+
 @{
     // TODO open the last completed page
     int DayCounter = 1;
 }
-<h2>@Model.Name</h2>
+<h2>@Model.Course.Name</h2>
 <ul class="nav nav-tabs" id="courseTab" role="tablist">
-    @foreach (var Page in Model.Pages)
+    @foreach (var Page in Model.Course.Pages)
     {
         <li class="nav-item">
             <a class="nav-link active" id="day-@DayCounter-tab" data-toggle="tab" href="#day-@DayCounter" role="tab" aria-controls="day-@DayCounter" aria-selected="true">Day @DayCounter</a>
         </li>
-        @(DayCounter++)
+        DayCounter++;
     }
 </ul>
 
 <div class="tab-content" id="courseTabContent">
-    @(DayCounter = 1)
-    @foreach (var Page in Model.Pages)
+    @{DayCounter = 1;}
+    @foreach (var Page in Model.Course.Pages)
     {
         <div class="tab-pane fade @(DayCounter == 1 ? "show active" : "")" id="day-@DayCounter" role="tabpanel" aria-labelledby="day-@DayCounter-tab">
             <h3>@Page.Title</h3>
@@ -26,10 +28,10 @@
 
             @if (Page.TaskTool != null)
             {
-                <component type="@Type.GetType(Page.TaskTool)" render-mode="ServerPrerendered" />
+                @(await Html.RenderComponentAsync<ToolTemplate>(RenderMode.ServerPrerendered, Page.TaskTool.Value))
             }
         </div>
-        @(DayCounter++)
+        DayCounter++;
     }
 </div>
 

@@ -12,7 +12,7 @@ namespace FinanceCourse.Pages
     public class CourseListModel : PageModel
     {
         public ApplicationDbContext _db { get; private set; }
-        public IEnumerable<Course> Courses { get; private set; }
+        public IEnumerable<Data.CourseModel> Courses { get; private set; }
         public CourseListModel (ApplicationDbContext db)
         {
             _db = db;

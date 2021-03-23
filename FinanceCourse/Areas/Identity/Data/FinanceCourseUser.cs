@@ -1,4 +1,5 @@
-﻿using FinanceCourse.Data;
+﻿using FinanceCourse.Areas.Tools.Models;
+using FinanceCourse.Data;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,8 @@ namespace FinanceCourse.Areas.Identity.Data
     public class FinanceCourseUser : IdentityUser
     {
         [PersonalData]
-        public virtual ICollection<CoursePage> CompletedPages { get; set; }
+        public virtual ICollection<CoursePageModel> CompletedPages { get; set; }
+        [PersonalData]
+        public virtual ICollection<ToolModel> ToolsStates { get; set; }
     }
 }

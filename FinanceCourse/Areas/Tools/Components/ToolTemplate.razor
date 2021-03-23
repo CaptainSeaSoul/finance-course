@@ -1,0 +1,11 @@
+﻿@using FinanceCourse.Areas.Tools.Services
+
+@code {
+    [Parameter]
+    public int ToolId { get; set; }
+    [Inject]
+    public ToolComponentService _ToolComponent { get; set; }
+}
+
+
+@_ToolComponent.RenderTool(ToolId)

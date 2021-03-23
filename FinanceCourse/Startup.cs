@@ -1,4 +1,5 @@
 using FinanceCourse.Areas.Identity.Data;
+using FinanceCourse.Areas.Tools.Services;
 using FinanceCourse.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,6 +46,9 @@ namespace FinanceCourse
             // configure Identity
             services.AddDefaultIdentity<FinanceCourseUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // configure Tools
+            services.AddSingleton<ToolComponentService>();
 
             // configure more
             services.AddRazorPages();

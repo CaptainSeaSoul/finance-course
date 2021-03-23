@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FinanceCourse.Data
 {
-    public class Course
+    public class CourseModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,6 +17,6 @@ namespace FinanceCourse.Data
         public string ImageLink { get; set; }
         [Required]
         public string ShortDescription { get; set; }
-        public virtual ICollection<CoursePage> Pages { get; set; }
+        public virtual ICollection<CoursePageModel> Pages { get; set; }
     }
 }
