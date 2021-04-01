@@ -1,4 +1,5 @@
 ﻿@using FinanceCourse.Areas.Tools.Services
+@using FinanceCourse.Areas.Tools.Models
 
 @code {
     [Parameter]
@@ -7,5 +8,8 @@
     public ToolComponentService _ToolComponent { get; set; }
 }
 
-
-@_ToolComponent.RenderTool(ToolId)
+<div style="border: solid #f8f9fa;">
+    <div class="container" style="max-height: 500px; overflow: auto">
+        @_ToolComponent.RenderTool(ToolId)
+    </div>
+</div>

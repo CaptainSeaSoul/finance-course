@@ -11,7 +11,7 @@
     @foreach (var Page in Model.Course.Pages)
     {
         <li class="nav-item">
-            <a class="nav-link active" id="day-@DayCounter-tab" data-toggle="tab" href="#day-@DayCounter" role="tab" aria-controls="day-@DayCounter" aria-selected="true">Day @DayCounter</a>
+            <a class="nav-link @(DayCounter == 1 ? "active" : "")" id="day-@DayCounter-tab" data-toggle="tab" href="#day-@DayCounter" role="tab" aria-controls="day-@DayCounter" aria-selected="@(DayCounter == 1 ? "true" : "false")">Day @DayCounter</a>
         </li>
         DayCounter++;
     }
@@ -22,12 +22,16 @@
     @foreach (var Page in Model.Course.Pages)
     {
         <div class="tab-pane fade @(DayCounter == 1 ? "show active" : "")" id="day-@DayCounter" role="tabpanel" aria-labelledby="day-@DayCounter-tab">
-            <h3>@Page.Title</h3>
+            <h3 class="mt-2 mb-4">@Page.Title</h3>
 
-            @Html.Raw(Page.Content)
+            <div class="container mb-5">
+                @Html.Raw(Page.Content)
+            </div>
+
 
             @if (Page.TaskTool != null)
             {
+                <h4 class="mb-3">Your task for today:</h4>
                 @(await Html.RenderComponentAsync<ToolTemplate>(RenderMode.ServerPrerendered, Page.TaskTool.Value))
             }
         </div>

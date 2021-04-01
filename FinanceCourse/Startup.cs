@@ -46,6 +46,7 @@ namespace FinanceCourse
             // configure Identity
             services.AddDefaultIdentity<FinanceCourseUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddHttpContextAccessor();
 
             // configure Tools
             services.AddSingleton<ToolComponentService>();

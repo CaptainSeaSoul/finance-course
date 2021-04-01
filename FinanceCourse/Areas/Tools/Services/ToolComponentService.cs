@@ -14,7 +14,8 @@ namespace FinanceCourse.Areas.Tools.Services
         public ToolComponentService()
         {
             Tools = new List<Type> {
-                typeof(QuizComponent)
+                typeof(QuizComponent),
+                typeof(PainterComponent)
             };
         }
 

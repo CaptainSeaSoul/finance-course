@@ -22,10 +22,6 @@ namespace FinanceCourse.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<ToolModel>()
-               .Property<string>("ToolDataStr")
-               .HasField("_toolData");
         }
     }
 }

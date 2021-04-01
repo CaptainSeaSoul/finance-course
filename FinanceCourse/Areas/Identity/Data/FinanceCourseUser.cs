@@ -14,5 +14,7 @@ namespace FinanceCourse.Areas.Identity.Data
         public virtual ICollection<CoursePageModel> CompletedPages { get; set; }
         [PersonalData]
         public virtual ICollection<ToolModel> ToolsStates { get; set; }
+        [PersonalData]
+        public virtual PersonalityTypeEnum? PersonalityType { get; set; }
     }
 }

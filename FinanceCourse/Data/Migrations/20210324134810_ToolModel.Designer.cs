@@ -4,14 +4,16 @@ using FinanceCourse.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FinanceCourse.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210324134810_ToolModel")]
+    partial class ToolModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,9 +72,6 @@ namespace FinanceCourse.Data.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PersonalityType")
-                        .HasColumnType("int");
-
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -112,7 +111,7 @@ namespace FinanceCourse.Data.Migrations
                     b.Property<string>("FinanceCourseUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ToolDataJson")
+                    b.Property<string>("ToolDataStr")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ToolId")

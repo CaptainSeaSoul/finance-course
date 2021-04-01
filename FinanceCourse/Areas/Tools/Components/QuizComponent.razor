@@ -1,7 +1,252 @@
 ﻿@inherits BlazorToolBase
 
-<h3>QuizComponent</h3>
+@using Microsoft.AspNetCore.Components.Forms
+@using FinanceCourse.Areas.Tools.Models;
 
-@code {
 
+
+<h3 class="mb-3">Think quickly and be honest</h3>
+
+<EditForm Model="quizModel" OnValidSubmit="HandleValidSubmitAsync" class="mb-5">
+    <DataAnnotationsValidator />
+    <div>
+        1.If $20,000 came to me unexpectedly, my first impulse would be to… <br />
+        <ValidationMessage For="@(() => quizModel.Answers[0].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[0].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.Spend it on things I want, including gifts for others.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.Immediately put it somewhere safe so it won’t get frittered away.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.Put off making any decisions until I felt less overwhelmed.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.Figure out ways of investing it to get the best possible return.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.Give most of it away to organizations that can make the world a better place.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        2.Here’s how I feel about my money: <br />
+        <ValidationMessage For="@(() => quizModel.Answers[1].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[1].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.I make sure it never influences my life choices.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.I enjoy spending it on gifts and anything else that gives me pleasure.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.I think about it a lot and strategize how to make more of it.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.I hold onto it and enjoy thinking about the security it provides.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.I try not to think about it and hope it will take care of itself.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        3.My primary financial objective is… <br />
+        <ValidationMessage For="@(() => quizModel.Answers[2].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[2].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.To save enough money now so I never have to worry about my old age.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.Unclear to me.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.To have enough of it to make sure I can buy whatever I want.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.To have enough to satisfy my basic needs, and then give the rest away.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.To make as much of it as possible as quickly as possible.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        4.Here’s how I feel about budgeting: <br />
+        <ValidationMessage For="@(() => quizModel.Answers[3].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[3].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.I take a lot of time figuring out how to have more money to spend and save.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.I take pride in following my budget closely.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.I take pride in living so simply that I’ve never needed a budget.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.Budget? Yuck! Just hearing the word makes me want to rebel.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.I don’t have a budget and wouldn’t know how to start making one. I hope my money will take care of itself.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        5.Here’s how I feel about spending: <br />
+        <ValidationMessage For="@(() => quizModel.Answers[4].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[4].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.I hope I have enough money to take care of unexpected expenses.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.I enjoy spending money, as long as I can keep earning and saving more and my net worth keeps increasing.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.I’d rather save my money; spending it makes me nervous.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.I don’t care where my money goes; I have more important things to think about.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.I love spending money, and I tend to spend more than I earn.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        6.Here’s how I feel about financial record keeping: <br />
+        <ValidationMessage For="@(() => quizModel.Answers[5].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[5].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.I love to look at my old statements to see how much more money I have now.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.I’m not sure which records I should be keeping.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.I enjoy keeping careful records.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.I keep track of things on and off.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.I don’t keep records. There are more important things in life.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        7.Here’s how I feel about saving: <br />
+        <ValidationMessage For="@(() => quizModel.Answers[6].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[6].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.I know I ought to be saving money, but I never seem to get around to it.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.I really enjoy saving—the more, the better!</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.I have trouble saving money, which bothers me sometimes.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.If I had enough money to save, I’d give it away instead.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.Saving comes naturally to me. I am regular and consistent about it.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        8.Here’s how I feel about borrowing: <br />
+        <ValidationMessage For="@(() => quizModel.Answers[7].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[7].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.I try not to borrow money because it’s easy to lose track of paying it back.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.It’s rare for me to borrow money, because I always have enough saved for emergencies.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.I’m willing to borrow money to make money, but I dislike having lots of debt.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.I’ve borrowed money quite often, but I can’t say I’ve always paid it back.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.I hate debt and would borrow only for absolute necessities.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        9.Here’s how I feel about lending money: <br />
+        <ValidationMessage For="@(() => quizModel.Answers[8].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[8].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.I’m pretty generous and don’t worry too much about getting it back.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.People tend not to ask me for money. They know I probably don’t have any extra.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.I have no idea whether I could afford to lend anyone money.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.I try never to lend money, but if I do, I feel tense about it until it’s repaid.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.I don’t mind lending money at a good interest rate, if I get repaid on time.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        10.Here’s how I feel about credit cards: <br />
+        <ValidationMessage For="@(() => quizModel.Answers[9].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[9].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.I don’t like to use credit cards, and think that people who do are asking for trouble.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.I use credit cards a lot and tend to make the minimum payment most of the time.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.I don’t mind running up a large balance, as long as I can pay it off quickly.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.I’m often surprised by how much I owe, especially when late fees are added in.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.I’ve always tended to avoid using credit. I prefer paying by debit card or cash.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        11.In the event of a financial emergency… <br />
+        <ValidationMessage For="@(() => quizModel.Answers[10].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[10].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.I don’t know if I have enough saved, so I just hope for the best.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.I hope I could rely on friends or bartering services.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.I never have enough money left over to save for emergencies.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.I’ve put aside a sizable amount for emergencies, but I’m not sure it’s enough.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.I’ve saved enough for almost any emergency, but hope I never have to spend it.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        12.Here’s how I feel about paying taxes: <br />
+        <ValidationMessage For="@(() => quizModel.Answers[11].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[11].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.I’m always astonished to find out how much tax I owe.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.I save regularly for taxes, and usually file my return well before it’s due.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.I hate the whole thing and try to get it done with as little fuss as possible.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.I always have to scramble to get my return done and find cash to pay my taxes.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.I take pride in paying less on my increased income, if I can.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        13.To feel totally satisfied with my annual income, I would need… <br />
+        <ValidationMessage For="@(() => quizModel.Answers[12].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[12].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.My employer to match every dollar I put into my 401(k).</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.At least twice as much as I’m earning now.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.I’m sure I could use more money, but I have no idea how much.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.I’m fine the way I am. More money would make me feel uncomfortable.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.To have someone else pay my bills, so I can spend the whole paycheck!</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        14.Here’s how I feel about investing: <br />
+        <ValidationMessage For="@(() => quizModel.Answers[13].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[13].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.I always let my dividends compound to maximize my return.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.If I were to invest, I’d want someone else to make all the decisions for me.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.I invest only in safe, conservative choices like CDs.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.I’ve always wanted to try something wild that might end up making me rich.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.If I were to invest, I would choose only socially responsible companies.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        15.When I really want to buy something that’s not in my budget: <br />
+        <ValidationMessage For="@(() => quizModel.Answers[14].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[14].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.What budget? Everything will work out all right.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.I have to think hard before giving myself permission to spend the money.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.I’ll buy it whether or not I can afford it.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.Most of the things I want are not expensive, so I can afford to buy them (even though later on I’ll probably wish I hadn’t).</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.If it’s important enough, I’ll tweak my portfolio. Otherwise, I’ll forget about it.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        16.When I think about money in general, to me it represents… <br />
+        <ValidationMessage For="@(() => quizModel.Answers[15].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[15].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.Security.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.Happiness, pleasure, and excitement.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.A sense of greed and possibly corruption.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.A source of anxiety and conflict.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.Power, prestige, and freedom.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        17.I would apply for a bank loan under these circumstances: <br />
+        <ValidationMessage For="@(() => quizModel.Answers[16].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[16].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.To go on vacation or buy something I really wanted.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.Only if it were a dire emergency. I hope I’ll never have to borrow money.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.To invest in a business or some other highld yielding opportunity.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.To make essential repairs, pay for college, or increase my future security.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.I don’t know.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        18.I worry about money… <br />
+        <ValidationMessage For="@(() => quizModel.Answers[17].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[17].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.Never. I worry about more important things, like global warming.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.Somewhat, but I’m doing all I can to make sure I’ll have more than enough.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.Constantly. It’s the main thing I worry about.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.Only when a financial crisis strikes.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.What, me worry? I just enjoy spending it!</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        19.Here’s how I feel about providing for my future: <br />
+        <ValidationMessage For="@(() => quizModel.Answers[18].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[18].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.I’m quite concerned, since it’s been so hard for me to save.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.All I can do is hope the future will take care of itself.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.Since I’m planning to have plenty of money, the future will probably be fine.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.I feel reasonably confident, since I’ve been saving systematically for years.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.I think making a difference with one’s life is much more important than money.</label><br />
+        </InputRadioGroup>
+    </div>
+    <div>
+        20.If I won a million dollars in the lottery, my first reaction would be to… <br />
+        <ValidationMessage For="@(() => quizModel.Answers[19].AnswerOption)" />
+        <InputRadioGroup @bind-Value="quizModel.Answers[19].AnswerOption">
+            <label class="ml-3"><InputRadio Value="AnswerOptions.a" />a.Feel guilty, thinking about people who have nothing.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.b" />b.Feel relieved that my future was now secure.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.c" />c.Be totally overwhelmed. I would have no idea how to handle it.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.d" />d.Start thinking about ways to make it grow and use it for my own enjoyment.</label><br />
+            <label class="ml-3"><InputRadio Value="AnswerOptions.e" />e.Be wildly excited, realizing that from now on I could buy anything I wanted.</label><br />
+        </InputRadioGroup>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+@if (PersonalityType != null)
+{
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">
+                Your Personality type: @PersonalityType.ToString()
+            </h1>
+
+            <p>Hoarder. You enjoy holding on to your money and budgeting for what you need. It may be difficult for you to spend money on luxury items or immediate pleasures for yourself and your loved ones. For you, money equals security.</p>
+            <p>Spender. You probably love to use your money to buy whatever will make you happy. You may have a hard time saving, budgeting, and delaying gratification for long-term goals. Money equals happiness and pleasure for you.</p>
+            <p>Money Monk. You think money corrupts, and you try to avoid having too much of it. You would feel guilty and conflicted if a large amount of money unexpectedly came your way. To you, it’s an evil influence—the Dark Side of the Force.</p>
+            <p>Avoider. You tend to avoid balancing your checkbook, setting spending priorities, and other financial tasks. You may feel anxious or incompetent about dealing with money. For you, money is a mystery you can’t (or don’t want to) understand.</p>
+            <p>Amasser. You like to keep large amounts of money on hand and to see your portfolio growing constantly. This preoccupation may be keeping you from fully enjoying your life and nonfinancial relationships in the moment.</p>
+            <p>Money means prestige, power, and success to you—maybe even self-worth.</p>
+            <p>Worrier. You worry about money constantly, to the point that it affects your peace of mind. Money means nothing but anxiety to you.</p>
+        </div>
+    </div>
 }
