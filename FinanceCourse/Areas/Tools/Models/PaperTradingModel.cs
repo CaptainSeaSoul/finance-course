@@ -98,7 +98,7 @@ namespace FinanceCourse.Areas.Tools.Models
 
                     if (i == 0)
                     {
-                        for (int j = 0; symbol.Value[j].TransactionDateUtc < date; j++)
+                        for (int j = 0; j < symbol.Value.Count && symbol.Value[j].TransactionDateUtc < date; j++)
                         {
                             SymbolAmount[symbol.Key] += symbol.Value[j].Amount;
                             balance -= symbol.Value[j].Summ();
