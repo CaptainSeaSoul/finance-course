@@ -15,7 +15,7 @@ namespace FinanceCourse.Areas.Tools.Components
     public partial class QuizComponent : BlazorToolBase
     {
         private QuizComponentModel quizModel = new();
-        private PersonalityTypeEnum? PersonalityType = null; 
+        private PersonalityTypeEnum? PersonalityType = null;
 
         protected override async Task OnInitializedAsync()
         {
@@ -27,23 +27,47 @@ namespace FinanceCourse.Areas.Tools.Components
                 quizModel = new QuizComponentModel(User.ToolsStates.First(ts => ts.ToolId == 0));
         }
 
-        private async void HandleValidSubmitAsync()  // TODO custom validation (so all are entered) https://blazor-university.com/forms/writing-custom-validation/
+        private async void HandleValidSubmitAsync()
         {
             // save quizModel
             await SaveStateAsync(quizModel);
 
-            // the calculate the personality and save it somewhere
+            // calculate the personality and save it somewhere
             PersonalityType = CalculatePersonality();
             if (User == null)
                 await GetCurrentUserAsync();
 
             User.PersonalityType = PersonalityType;
 
+            // send info to the user
+            _mailService.SendEmailAsync(User.Email, "Day 1 quiz rezults", GetPersonalDescription(User.PersonalityType));
+
             _db.Update(User);
-            await _db.SaveChangesAsync();
+            _db.SaveChangesAsync();
 
             // show the result
             StateHasChanged();
+        }
+
+        private string GetPersonalDescription(PersonalityTypeEnum? personalityType)
+        {
+            switch (personalityType)
+            {
+                case PersonalityTypeEnum.Hoarder:
+                    return "Hoarder.You enjoy holding on to your money and budgeting for what you need.It may be difficult for you to spend money on luxury items or immediate pleasures for yourself and your loved ones.For you, money equals security.";
+                case PersonalityTypeEnum.Spender:
+                    return "Spender.You probably love to use your money to buy whatever will make you happy.You may have a hard time saving, budgeting, and delaying gratification for long - term goals.Money equals happiness and pleasure for you.";
+                case PersonalityTypeEnum.Money_Monk:
+                    return "Money Monk.You think money corrupts, and you try to avoid having too much of it.You would feel guilty and conflicted if a large amount of money unexpectedly came your way. To you, it’s an evil influence—the Dark Side of the Force.";
+                case PersonalityTypeEnum.Avoider:
+                    return "Avoider.You tend to avoid balancing your checkbook, setting spending priorities, and other financial tasks.You may feel anxious or incompetent about dealing with money. For you, money is a mystery you can’t(or don’t want to) understand.";
+                case PersonalityTypeEnum.Amasser:
+                    return "Amasser.You like to keep large amounts of money on hand and to see your portfolio growing constantly. This preoccupation may be keeping you from fully enjoying your life and nonfinancial relationships in the moment. Money means prestige, power, and success to you—maybe even self - worth.";
+                case PersonalityTypeEnum.Worrier:
+                    return "Worrier.You worry about money constantly, to the point that it affects your peace of mind.Money means nothing but anxiety to you.";
+                default:
+                    return "No personality type";
+            }
         }
 
         private PersonalityTypeEnum CalculatePersonality()

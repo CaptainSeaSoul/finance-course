@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+
+@inherits BlazorToolBase
+
+<div class="alert alert-primary row" role="alert">
+    Your current balance: @model.Balance
+</div>
+<div class="row">
+    <canvas id="NetWorthGraph"></canvas>
+</div>
+
+<div>
+    <table class="table mb-2">
+        <thead>
+            <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">Price USD</th>
+                <th scope="col">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var stock in model.CurrentPossesion)
+            {
+                var symbol = stock.Key;
+
+                <tr>
+                    <td>@(stock.Key)</td>
+                    <td>@(stock.Value.Price)</td>
+                    <td><input class="form-control" @onchange="@(e => StockAmountChanged(symbol, int.Parse(e.Value.ToString())))" value="@stock.Value.Amount" type="number"/></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <button class="btn btn-primary"  @onclick="ApplyChangesAsync">Apply</button>
+</div>

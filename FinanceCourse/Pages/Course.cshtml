@@ -28,11 +28,15 @@
                 @Html.Raw(Page.Content)
             </div>
 
+            <div class="container mb-5 alert alert-info">
+                <h4>Your personal recomendation:</h4>
+                <p>@await Model.GetPersonalAdviceAsync(Page.Id)</p>
+            </div>
 
             @if (Page.TaskTool != null)
             {
                 <h4 class="mb-3">Your task for today:</h4>
-                @(await Html.RenderComponentAsync<ToolTemplate>(RenderMode.ServerPrerendered, Page.TaskTool.Value))
+                @(await Html.RenderComponentAsync<ToolTemplate>(RenderMode.ServerPrerendered, new { ToolId = Page.TaskTool.Value }))
             }
         </div>
         DayCounter++;

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using FinanceCourse.Areas.Tools.Services;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,13 @@ namespace FinanceCourse.Areas.Tools.Models
         public int Id { get; set; }
 
         [Required]
-        public int ToolId { get; set; }
+        public virtual int ToolId { get; set; }
 
         public string ToolDataJson { get; set; }
 
-        public virtual void SaveJson() { throw new NotImplementedException(); }
+        public virtual void SaveJson()
+        {
+
+        }
     }
 }

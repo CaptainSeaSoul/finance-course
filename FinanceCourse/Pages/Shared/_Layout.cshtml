@@ -6,6 +6,18 @@
     <title>@ViewData["Title"] - FinanceCourse</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- Literally Canvas stylesheet -->
+    <link href="~/lib/literally-canvas/css/literallycanvas.css" rel="stylesheet">
+    <!-- dependency: React.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-with-addons.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
+    <!-- Literally Canvas -->
+    <script src="~/lib/literally-canvas/js/literallycanvas.min.js"></script>
+
+    <!-- Developer Script -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
     <base href="~/" />
 </head>
 <body>
@@ -48,7 +60,8 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

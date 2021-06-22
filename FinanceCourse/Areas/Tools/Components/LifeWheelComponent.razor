@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Forms
+@using FinanceCourse.Areas.Tools.CustomComponents
+
+@inherits BlazorToolBase
+
+<div>
+    <canvas id="lifeWheelChart"></canvas>
+</div>
+
+<EditForm EditContext="editContext">
+    <ObjectGraphDataAnnotationsValidator />
+
+    @{
+        int count = 0;
+    }
+    @foreach (var stat in lifeWheelModel.LifeStats)
+    {
+    <div class="form-group row">
+        <div class="col">
+            <CustomInputText @bind-Value="stat.Name" class="form-control" />
+            <ValidationMessage For="@(() => stat.Name)" />
+        </div>
+        <div class="col">
+            <CustomInputNumber @bind-Value="stat.Score" class="form-control" />
+            <ValidationMessage For="@(() => stat.Score)" />
+        </div>
+        <div class="col">
+            @{var removeId = count++;}
+            <input @onclick="@(async e => await RemoveRowAsync(removeId))" type="button" class="btn btn-primary" value="-" />
+        </div>
+    </div>
+    }
+</EditForm>
+
+<EditForm EditContext="additionalEditContext" class="mb-4">
+    <ObjectGraphDataAnnotationsValidator />
+
+    <div class="form-group row">
+        <div class="col">
+            <CustomInputText @bind-Value="additionalRow.Name" class="form-control" placeholder="Add row name" />
+            <ValidationMessage For="@(() => additionalRow.Name)" />
+        </div>
+        <div class="col">
+            <CustomInputNumber @bind-Value="additionalRow.Score" class="form-control" placeholder="Add row value" />
+            <ValidationMessage For="@(() => additionalRow.Score)" />
+        </div>
+        <div class="col">
+            <input @onclick="AddRowAsync" type="button" class="btn btn-primary" value="+" />
+        </div>
+    </div>
+</EditForm>
+
+<button class="btn btn-primary" type="button" @onclick="SendWheelAsync">Send me</button>

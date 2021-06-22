@@ -1,3 +1,9 @@
-﻿<h3>PainterComponent</h3>
+﻿@using Microsoft.AspNetCore.Components.Web
 
+@inherits BlazorToolBase
 
+<h3>PainterComponent</h3>
+
+<div class="painter-component-widget mb-4"></div>
+
+<button type="button" class="btn btn-primary" @onclick="SendPaintingAsync">Send me</button>

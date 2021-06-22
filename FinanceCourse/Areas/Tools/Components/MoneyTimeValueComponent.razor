@@ -1,0 +1,148 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@inherits BlazorToolBase
+
+<form>
+    <div class="form-row">
+        <div class="align-self-center col">
+            <label>SPCA</label>
+        </div>
+        <div class="form-group col">
+            <label for="SPCA_V0">V0</label>
+            <input class="form-control" id="SPCA_V0" type="number" step="any" @bind="SPCA.V0" @bind:event="oninput" />
+        </div>
+        <div class="form-group col">
+            <label for="SPCA_R">R</label>
+            <input class="form-control" id="SPCA_R" type="number" step="any" @bind="SPCA.R" @bind:event="oninput" />
+        </div>
+        <div class="form-group col">
+            <label for="SPCA_T">t</label>
+            <input class="form-control" id="SPCA_T" type="number" step="any" @bind="SPCA.T" @bind:event="oninput" />
+        </div>
+        <div class="form-group col">
+            <label for="SPCA_Res">Vt</label>
+            <input class="form-control" id="SPCA_Res" value="@SPCA.CalculateSPCA()" readonly />
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="align-self-center col">
+            <label>SPPV</label>
+        </div>
+        <div class="form-group col">
+            <label for="SPPV_Vt">Vt</label>
+            <input class="form-control" id="SPPV_Vt" type="number" step="any" @bind="SPPV.Vt" @bind:event="oninput" />
+        </div>
+        <div class="form-group col">
+            <label for="SPPV_R">R</label>
+            <input class="form-control" id="SPPV_R" type="number" step="any" @bind="SPPV.R" @bind:event="oninput" />
+        </div>
+        <div class="form-group col">
+            <label for="SPPV_T">t</label>
+            <input class="form-control" id="SPPV_T" type="number" step="any" @bind="SPPV.T" @bind:event="oninput" />
+        </div>
+        <div class="form-group col">
+            <label for="SPPV_Res">V0</label>
+            <input class="form-control" id="SPPV_Res" value="@SPPV.CalculateSPPV()" readonly />
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="align-self-center col">
+            <label>USCA</label>
+        </div>
+        <div class="form-group col">
+            <label for="USCA_P">P</label>
+            <input class="form-control" id="USCA_P" type="number" step="any" @bind="USCA.P" @bind:event="oninput" />
+        </div>
+        <div class="form-group col">
+            <label for="USCA_R">R</label>
+            <input class="form-control" id="USCA_R" type="number" step="any" @bind="USCA.R" @bind:event="oninput" />
+        </div>
+        <div class="form-group col">
+            <label for="USCA_T">t</label>
+            <input class="form-control" id="USCA_T" type="number" step="any" @bind="USCA.T" @bind:event="oninput" />
+        </div>
+        <div class="form-group col">
+            <label for="USCA_Res">Vt</label>
+            <input class="form-control" id="USCA_Res" value="@USCA.CalculateUSCA()" readonly />
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="align-self-center col">
+            <label>SFD</label>
+        </div>
+        <div class="form-group col">
+            <label for="SFD_Vt">Vt</label>
+            <input class="form-control" id="SFD_Vt" type="number" step="any" @bind="SFD.Vt" @bind:event="oninput" />
+        </div>
+        <div class="form-group col">
+            <label for="SFD_R">R</label>
+            <input class="form-control" id="SFD_R" type="number" step="any" @bind="SFD.R" @bind:event="oninput" />
+        </div>
+        <div class="form-group col">
+            <label for="SFD_T">t</label>
+            <input class="form-control" id="SFD_T" type="number" step="any" @bind="SFD.T" @bind:event="oninput" />
+        </div>
+        <div class="form-group col">
+            <label for="SFD_Res">P</label>
+            <input class="form-control" id="SFD_Res" value="@SFD.CalculateSFD()" readonly />
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="align-self-center col">
+            <label>CR</label>
+        </div>
+        <div class="form-group col">
+            <label for="CR_V0">V0</label>
+            <input class="form-control" id="CR_V0" type="number" step="any" @bind="CR.V0" @bind:event="oninput" />
+        </div>
+        <div class="form-group col">
+            <label for="CR_R">R</label>
+            <input class="form-control" id="CR_R" type="number" step="any" @bind="CR.R" @bind:event="oninput" />
+        </div>
+        <div class="form-group col">
+            <label for="CR_T">t</label>
+            <input class="form-control" id="CR_T" type="number" step="any" @bind="CR.T" @bind:event="oninput" />
+        </div>
+        <div class="form-group col">
+            <label for="CR_Res">Vt</label>
+            <input class="form-control" id="CR_Res" value="@CR.CalculateCR()" readonly />
+        </div>
+    </div>
+</form>
+
+
+@code {
+    private FinanceFormula SPCA { get; set; } = new();
+
+    private FinanceFormula SPPV { get; set; } = new();
+
+    private FinanceFormula USCA { get; set; } = new();
+
+    private FinanceFormula SFD { get; set; } = new();
+
+    private FinanceFormula CR { get; set; } = new();
+
+
+
+    class FinanceFormula
+    {
+        public Double V0 { get; set; }
+        public Double T { get; set; }
+        public Double R { get; set; }
+        public Double Vt { get; set; }
+        public Double P { get; set; }
+
+        public Double CalculateSPCA() => (V0 * Math.Pow((1 + R), T));
+
+        public Double CalculateSPPV() => (Vt / Math.Pow(1 + R, T));
+
+        public Double CalculateUSCA() => (P * (Math.Pow(1 + R, T) - 1) / R);
+
+        public Double CalculateSFD() => (Vt * R / (Math.Pow(1 + R, T) - 1));
+
+        public Double CalculateCR() => (V0 * R * Math.Pow(1 + R, T) / (Math.Pow(1 + R, T) - 1));
+    }
+}

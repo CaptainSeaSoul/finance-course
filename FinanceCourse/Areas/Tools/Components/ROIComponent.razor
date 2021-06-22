@@ -1,0 +1,147 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using FinanceCourse.Areas.Tools.CustomComponents
+@using Microsoft.AspNetCore.Components.Web
+
+@inherits BlazorToolBase
+
+<EditForm EditContext="editContext" OnValidSubmit="HandleValidSubmitAsync">
+    <ObjectGraphDataAnnotationsValidator />
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Cost</th>
+                    <th scope="col">Time Cost in Hours</th>
+                    <th scope="col">Difficulty (0 to 10)</th>
+                    <th scope="col">Estimated Return</th>
+                    <th scope="col">Confidence (0 to 1)</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Intangibles</th>
+                    <th scope="col">Return * Confidence</th>
+                    <th scope="col">Actual Return</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int count = 0;
+                }
+                @foreach (var goal in componentModel.FormModel)
+                {
+                <tr>
+                    <td>
+                        <CustomInputText @bind-Value="goal.Name" class="form-control w-a" />
+                        <ValidationMessage For="@(() => goal.Name)" />
+                    </td>
+                    <td>
+                        <CustomInputNumber @bind-Value="goal.Cost" class="form-control" />
+                        <ValidationMessage For="@(() => goal.Cost)" />
+                    </td>
+                    <td>
+                        <CustomInputNumber @bind-Value="goal.HoursTimeCost" class="form-control" />
+                        <ValidationMessage For="@(() => goal.HoursTimeCost)" />
+                    </td>
+                    <td>
+                        <CustomInputNumber @bind-Value="goal.Difficulty" class="form-control" />
+                        <ValidationMessage For="@(() => goal.Difficulty)" />
+                    </td>
+                    <td>
+                        <CustomInputNumber @bind-Value="goal.EstimatedReturn" class="form-control" />
+                        <ValidationMessage For="@(() => goal.EstimatedReturn)" />
+                    </td>
+                    <td>
+                        <CustomInputNumber @bind-Value="goal.Confidence" class="form-control" />
+                        <ValidationMessage For="@(() => goal.Confidence)" />
+                    </td>
+                    <td>
+                        <CustomInputDate @bind-Value="goal.StartDate" class="form-control" />
+                        <ValidationMessage For="@(() => goal.StartDate)" />
+                    </td>
+                    <td>
+                        <CustomInputDate @bind-Value="goal.EndDate" class="form-control" />
+                        <ValidationMessage For="@(() => goal.EndDate)" />
+                    </td>
+                    <td>
+                        <CustomInputText @bind-Value="goal.Intengibles" class="form-control w-a" />
+                        <ValidationMessage For="@(() => goal.Intengibles)" />
+                    </td>
+                    <td>
+                        @goal.ReturnConfidence
+                    </td>
+                    <td>
+                        <CustomInputNumber @bind-Value="goal.RealReturn" class="form-control" />
+                        <ValidationMessage For="@(() => goal.RealReturn)" />
+                    </td>
+                    <td>
+                        @{var removeId = count++;}
+                        <input @onclick="@(_ => RemoveRow(removeId))" type="button" class="btn btn-primary" value="-" />
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</EditForm>
+
+<EditForm EditContext="additionalEditContext" class="mb-4">
+    <ObjectGraphDataAnnotationsValidator />
+    <div class="table-responsive">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>
+                        <CustomInputText @bind-Value="additionalRow.Name" class="form-control w-a" />
+                        <ValidationMessage For="@(() => additionalRow.Name)" />
+                    </td>
+                    <td>
+                        <CustomInputNumber @bind-Value="additionalRow.Cost" class="form-control" />
+                        <ValidationMessage For="@(() => additionalRow.Cost)" />
+                    </td>
+                    <td>
+                        <CustomInputNumber @bind-Value="additionalRow.HoursTimeCost" class="form-control" />
+                        <ValidationMessage For="@(() => additionalRow.HoursTimeCost)" />
+                    </td>
+                    <td>
+                        <CustomInputNumber @bind-Value="additionalRow.Difficulty" class="form-control" />
+                        <ValidationMessage For="@(() => additionalRow.Difficulty)" />
+                    </td>
+                    <td>
+                        <CustomInputNumber @bind-Value="additionalRow.EstimatedReturn" class="form-control" />
+                        <ValidationMessage For="@(() => additionalRow.EstimatedReturn)" />
+                    </td>
+                    <td>
+                        <CustomInputNumber @bind-Value="additionalRow.Confidence" class="form-control" />
+                        <ValidationMessage For="@(() => additionalRow.Confidence)" />
+                    </td>
+                    <td>
+                        <CustomInputDate @bind-Value="additionalRow.StartDate" class="form-control" />
+                        <ValidationMessage For="@(() => additionalRow.StartDate)" />
+                    </td>
+                    <td>
+                        <CustomInputDate @bind-Value="additionalRow.EndDate" class="form-control" />
+                        <ValidationMessage For="@(() => additionalRow.EndDate)" />
+                    </td>
+                    <td>
+                        <CustomInputText @bind-Value="additionalRow.Intengibles" class="form-control w-a" />
+                        <ValidationMessage For="@(() => additionalRow.Intengibles)" />
+                    </td>
+                    <td>
+                        @additionalRow.ReturnConfidence
+                    </td>
+                    <td>
+                        <CustomInputNumber @bind-Value="additionalRow.RealReturn" class="form-control" />
+                        <ValidationMessage For="@(() => additionalRow.RealReturn)" />
+                    </td>
+                    <td>
+                        <input @onclick="AddRow" type="button" class="btn btn-primary" value="+" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</EditForm>
+
+<button class="btn btn-primary" type="button" @onclick="SendROIAsync">Send me</button>

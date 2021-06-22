@@ -51,9 +51,15 @@ namespace FinanceCourse
             // configure Tools
             services.AddSingleton<ToolComponentService>();
 
+            // configure Trading
+            AlpacaConfig alpacaConfig = Configuration.GetSection("AlpacaConfig").Get<AlpacaConfig>();
+            services.AddSingleton<AlpacaConfig>(alpacaConfig);
+            services.AddSingleton<TradingService>();
+
             // configure more
             services.AddRazorPages();
-            services.AddServerSideBlazor();
+            services.AddServerSideBlazor()
+                .AddHubOptions(options => options.MaximumReceiveMessageSize = 64 * 1024); ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

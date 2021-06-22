@@ -16,7 +16,7 @@ namespace FinanceCourse.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.3")
+                .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("CoursePageModelFinanceCourseUser", b =>
@@ -174,6 +174,29 @@ namespace FinanceCourse.Data.Migrations
                     b.HasIndex("ParentCourseId");
 
                     b.ToTable("CoursePages");
+                });
+
+            modelBuilder.Entity("FinanceCourse.Data.PersonalAdvice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ParentPageId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonalityType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("advice")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentPageId");
+
+                    b.ToTable("PersonalAdvice");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -344,6 +367,17 @@ namespace FinanceCourse.Data.Migrations
                     b.Navigation("ParentCourse");
                 });
 
+            modelBuilder.Entity("FinanceCourse.Data.PersonalAdvice", b =>
+                {
+                    b.HasOne("FinanceCourse.Data.CoursePageModel", "ParentPage")
+                        .WithMany("PersonalAdvice")
+                        .HasForeignKey("ParentPageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ParentPage");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -403,6 +437,11 @@ namespace FinanceCourse.Data.Migrations
             modelBuilder.Entity("FinanceCourse.Data.CourseModel", b =>
                 {
                     b.Navigation("Pages");
+                });
+
+            modelBuilder.Entity("FinanceCourse.Data.CoursePageModel", b =>
+                {
+                    b.Navigation("PersonalAdvice");
                 });
 #pragma warning restore 612, 618
         }

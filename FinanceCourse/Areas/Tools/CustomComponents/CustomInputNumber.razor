@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Forms
+
+@typeparam TValue
+@inherits InputNumber<TValue>
+
+@{
+    var step = "";
+
+    if (typeof(TValue) == typeof(Double) || typeof(TValue) == typeof(Decimal))
+        step = "any";
+}
+
+<input @attributes="AdditionalAttributes" class="@CssClass"
+       @bind="CurrentValue" @bind:event="oninput" type="number" step="@step" />
+

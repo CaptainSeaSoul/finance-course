@@ -1,5 +1,6 @@
 ﻿@using FinanceCourse.Areas.Tools.Services
 @using FinanceCourse.Areas.Tools.Models
+@using Microsoft.AspNetCore.Components
 
 @code {
     [Parameter]
@@ -9,7 +10,7 @@
 }
 
 <div style="border: solid #f8f9fa;">
-    <div class="container" style="max-height: 500px; overflow: auto">
+    <div class="container" style="max-height: 650px; overflow: auto">
         @_ToolComponent.RenderTool(ToolId)
     </div>
 </div>

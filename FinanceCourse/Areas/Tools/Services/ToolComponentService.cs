@@ -15,7 +15,11 @@ namespace FinanceCourse.Areas.Tools.Services
         {
             Tools = new List<Type> {
                 typeof(QuizComponent),
-                typeof(PainterComponent)
+                typeof(PainterComponent),
+                typeof(LifeWheelComponent),
+                typeof(ROIComponent),
+                typeof(MoneyTimeValueComponent),
+                typeof(PaperTradingComponent)
             };
         }
 
@@ -26,5 +30,10 @@ namespace FinanceCourse.Areas.Tools.Services
         };
 
         public RenderFragment RenderTool(int tId) => RenderTool(Tools[tId]);
+
+        public int GetToolId(Type type)
+        {
+            return Tools.IndexOf(type);
+        }
     }
 }

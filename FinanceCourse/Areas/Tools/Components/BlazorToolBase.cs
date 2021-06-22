@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
@@ -13,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using WebPortfolio.Services;
 
 namespace FinanceCourse.Areas.Tools.Components
 {
@@ -22,6 +24,8 @@ namespace FinanceCourse.Areas.Tools.Components
         protected ApplicationDbContext _db { get; set; }
         [Inject]
         protected AuthenticationStateProvider _authenticationStateProvider { get; set; }
+        [Inject]
+        protected IEmailSender _mailService { get; set; }
         protected FinanceCourseUser User = null;
 
         protected override async Task OnInitializedAsync()

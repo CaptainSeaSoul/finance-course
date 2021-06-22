@@ -1,0 +1,7 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Forms
+
+@inherits InputDate<DateTime>
+
+<input @attributes="AdditionalAttributes" class="@CssClass"
+       @bind="CurrentValue" @bind:event="oninput" type="date" />

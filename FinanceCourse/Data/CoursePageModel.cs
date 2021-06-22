@@ -21,6 +21,6 @@ namespace FinanceCourse.Data
         public string Content { get; set; }
         public int? TaskTool { get; set; }
         public ICollection<FinanceCourseUser> PassedUsers { get; set; }
-
+        public ICollection<PersonalAdvice> PersonalAdvice { get; set; }
     }
 }
